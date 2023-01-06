@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employment System</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class= "bg-light text-dark">
+	<div class="px-3 py-2 bg-info text-dark">
+	      	<div class="container">
+	        	<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+	          		<a th:href="@{/employee}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+						<h3><strong>Employee Management System</strong></h3>
+	          		</a>
+	
+		          	<ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small nav-tab">
+		            	<li calss="nav-item">
+		              		<a th:href="@{/employee}" class="nav-link text-dark" data-toggle="tooltip" data-placement="bottom" title="Show Employee list">Employee <i class="fa-solid fa-list"></i></a>
+		            	</li>
+		           		<li>
+		              		<a th:href="@{/employee/new}" class="nav-link text-dark"><i class="fa-solid fa-plus" data-toggle="tooltip" data-placement="bottom" title="Add Employee"></i> Employee</a>
+		            	</li>
+		            	<li>
+		              		<a th:href="@{/employee/compensation/new}" class="nav-link text-dark" data-toggle="tooltip" data-placement="bottom" title="Add compensation"><i class="fa-solid fa-plus"></i> Compensation</a>
+		            	</li>
+		          </ul>
+	        	</div>
+	      	</div>
+	    </div>
+
+	<div class="container bg-light text-dark">
+		<div class="row justify-content-center">
+			<h1 class = " text-center">Employee List</h1>
+		</div>
+
+		<div>
+			<form th:action="@{/employee/search}" th:object="${filter}"
+				method="POST">
+				<div class="row">
+					<div class="col-md-1 d-flex align-items-center adjust">
+						<label><h5 style="font-size: 18px">
+								Filter by:
+								</h6>
+							</h5></label>
+					</div>
+					<div class="col-md-3 adjust">
+						<div class="form-floating">
+							<input type="text" name="Fname" id="floatingFN"
+								th:value="${Fname}" class="form-control"
+								placeholder="First name"> <label for="floatingFN">First
+								name</label>
+						</div>
+					</div>
+					<div class="col-md-3 adjust">
+						<div class="form-floating">
+							<input type="text" name="Lname" id="floatingLN"
+								th:value="${Lname}" class="form-control" placeholder="Last name">
+							<label for="floatingLN">Last name</label>
+						</div>
+					</div>
+					<div class="col-md-3 adjust">
+						<div class="form-floating">
+							<input type="text" name="position" id="position"
+								th:value="${Position}" class="form-control"
+								placeholder="Position"> <label for="position">Position</label>
+						</div>
+					</div>
+					<div
+						class="col-md-2 d-grid gap-2 d-md-flex justify-content-md-end adjust">
+						<div class="d-flex align-items-center">
+							<button class="btn btn-primary me-md-2" type="submit">
+								<i class="fa-solid fa-magnifying-glass"></i> Search
+							</button>
+							<button class="btn btn-secondary clear" type="button"
+								onClick="window.location='/employee'">
+								<i class="fa-solid fa-rotate-left"></i> Clear
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="nav-link text-white" >
+			<ul class= "d-flex justify-content-start">
+				<li>
+					<div class="d-inline-flex p-2">
+						<span class="badge badge-pill badge-info position-relative">
+						<a th:href="@{employee/new}" class="btn btn-info btn-lg mt-2">
+							Add Employee</a>
+						</span>
+					</div>
+				</li>
+			
+				<li>
+					<div class="d-inline-flex p-2">
+						<span class="badge badge-pill badge-info position-relative">
+						<a th:href="@{/employee/compensation/new}" class="btn btn-info btn-lg mt-2">Add compensation</a>
+						</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+
+		<table class="table table-striped table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>ID</th>
+					<th>First Name</th>
+					<th>Middle Name</th>
+					<th>Last Name</th>
+					<th>Birth date</th>
+					<th>Position</th>
+					<th>Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="employee: ${employee}">
+					<td th:text="${employee.id}"></td>
+					<td th:text="${employee.fname}"></td>
+					<td th:text="${employee.mname}"></td>
+					<td th:text="${employee.lname}"></td>
+					<td th:text="${employee.bdate}"></td>
+					<td th:text="${employee.position}"></td>
+					<td><a th:href="@{/employee/edit/{id}(id= ${employee.id})}"
+						class="btn btn-success btn-sm mb-3"><i class="fa-solid fa-eye"></i></a>
+					<a th:href="@{/employee/compensation/{id}(id= ${employee.id})}"
+						class="btn btn-info btn-sm mb-3"><i class="fa-solid fa-eye"></i>Compensation</a></td>
+					
+
+				</tr>
+				<tr th:if="${#lists.isEmpty(employee)}">
+					<th colspan=7 style="text-align: center">0 RESULTS FOUND</th>
+				</tr>
+			</tbody>
+
+		</table>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employment System</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body class= "bg-light text-dark">
+	<div class="px-3 py-2 bg-info text-dark">
+	      	<div class="container">
+	        	<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+	          		<a th:href="@{/employee}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+						<h3><strong>Employee Management System</strong></h3>
+	          		</a>
+	
+		          	<ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small nav-tab">
+		            	<li calss="nav-item">
+		              		<a th:href="@{/employee}" class="nav-link text-dark" data-toggle="tooltip" data-placement="bottom" title="Show Employee list">Employee <i class="fa-solid fa-list"></i></a>
+		            	</li>
+		           		<li>
+		              		<a th:href="@{/employee/new}" class="nav-link text-dark"><i class="fa-solid fa-plus" data-toggle="tooltip" data-placement="bottom" title="Add Employee"></i> Employee</a>
+		            	</li>
+		            	<li>
+		              		<a th:href="@{/employee/compensation/new}" class="nav-link text-dark" data-toggle="tooltip" data-placement="bottom" title="Add compensation"><i class="fa-solid fa-plus"></i> Compensation</a>
+		            	</li>
+		          </ul>
+	        	</div>
+	      	</div>
+	    </div>
+	<br><br>
+	<div class = "container bg-light text-dark">
+		<div class = "row" >
+			<div class = "col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Update Employee</h1>
+				<div class = "card-body">
+					<form th:action ="@{/employee/{id} (id = ${employee.id})}" th:object ="${employeeEntity}" method = "POST">
+						<div class ="form-group">
+							<label>Employee First Name</label>
+							<input type = "text" name="Fname" th:field ="*{Fname}" class ="form-control" placeholder ="Enter Employee First Name"/>
+						</div>
+						<div class ="form-group">
+							<label>Employee Middle Name</label>
+							<input type = "text" name="Mname" th:field ="*{Mname}" class ="form-control" placeholder ="Enter Employee Middle Name"/>
+						</div>
+						<div class ="form-group">
+							<label>Employee Last Name</label>
+							<input type = "text" name="Lname" th:field ="*{Lname}" class ="form-control" placeholder ="Enter Employee Last Name"/>
+						</div>
+						<div class ="form-group">
+							<label>Employee Birthdate</label>
+							<input type = "date" name="bdate" th:field ="*{bdate}" class ="form-control" placeholder ="Enter Employee Birth date"/>
+						</div>
+						<div class ="form-group">
+							<label>Employee Position</label>
+							<input type = "text" name="position" th:field ="*{position}" class ="form-control" placeholder ="Enter Employee Position"/>
+						</div>
+							
+						<div class = "footer-body">
+							<button type = "submit" class = "btn btn-primary">
+								Submit
+							</button>
+						
+						</div>
+							
+							
+							
+						
+						
+					
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
